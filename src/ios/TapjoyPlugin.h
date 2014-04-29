@@ -9,8 +9,8 @@
 
 #import <Cordova/CDVPlugin.h>
 #import <Foundation/Foundation.h>
-#import "Tapjoy.h"
-#import "TJEvent.h"
+#import <Tapjoy/Tapjoy.h>
+#import <Tapjoy/TJEvent.h>
 
 //EVENTS
 static NSString* const TJ_SEND_EVENT_COMPLETE = @"TJ_SEND_EVENT_COMPLETE";
@@ -26,12 +26,10 @@ static NSString* const TJ_DID_REQUEST_ACTION = @"TJ_DID_REQUEST_ACTION";
 
 @property (nonatomic, retain) NSMutableDictionary *keyFlagValueDict;
 @property (nonatomic, copy) NSString* connectCallbackID;            /*!< The callback ID for the Tapjoy Connect call. */
-@property (nonatomic, copy) NSString* featuredAppCallbackID;        /*!< The callback ID for Featured App. */
 @property (nonatomic, copy) NSString* fullScreenAdCallbackID;       /*!< The callback ID for Full Screen Ad. */
 @property (nonatomic, copy) NSString* tapPointsCallbackID;          /*!< The callback ID for retrieving Tap Points. */
 @property (nonatomic, copy) NSString* spendTapPointsCallbackID;     /*!< The callback ID for spending Tap Points. */
 @property (nonatomic, copy) NSString* awardTapPointsCallbackID;     /*!< The callback ID for awarding Tap Points. */
-@property (nonatomic, copy) NSString* dailyRewardAdCallbackID;      /*!< The callback ID for Daily Reward Ad. */
 @property (nonatomic, copy) NSString* videoAdDelegateCallbackID;    /*!< The callback ID for Video Ad Delegate. */
 @property (nonatomic, copy) NSString* displayAdCallbackID;          /*!< The callback ID for Display Ad. */
 @property (nonatomic, copy) NSString* offersCallbackID;             /*!< The callback ID for Offer Wall. */
@@ -40,6 +38,7 @@ static NSString* const TJ_DID_REQUEST_ACTION = @"TJ_DID_REQUEST_ACTION";
 @property (nonatomic, assign) CGRect displayAdFrame;
 @property (nonatomic, retain) NSMutableDictionary *eventsDict;
 @property (nonatomic, retain) NSMutableDictionary *callbackDict;
+@property (nonatomic, retain) NSMutableDictionary *eventRequestDict;
 
 - (BOOL)hasKeyFlag;
 
@@ -61,35 +60,23 @@ static NSString* const TJ_DID_REQUEST_ACTION = @"TJ_DID_REQUEST_ACTION";
 
 - (void)awardTapPoints:(CDVInvokedUrlCommand*)command;
 
-- (void)getFeaturedApp:(CDVInvokedUrlCommand*)command;
-
-- (void)getFeaturedAppWithCurrencyID:(CDVInvokedUrlCommand*)command;
-
-- (void)setFeaturedAppDisplayCount:(CDVInvokedUrlCommand*)command;
-
-- (void)showFeaturedAppFullScreenAd:(CDVInvokedUrlCommand*)command;
-
 - (void)getFullScreenAd:(CDVInvokedUrlCommand*)command;
 
 - (void)getFullScreenAdWithCurrencyID:(CDVInvokedUrlCommand*)command;
 
 - (void)showFullScreenAd:(CDVInvokedUrlCommand*)command;
 
-- (void)getDailyRewardAd:(CDVInvokedUrlCommand*)command;
-
-- (void)getDailyRewardAdWithCurrencyID:(CDVInvokedUrlCommand*)command;
-
-- (void)showDailyRewardAd:(CDVInvokedUrlCommand*)command;
-
-- (void)initVideoAd:(CDVInvokedUrlCommand*)command;
-
 - (void)setVideoCacheCount:(CDVInvokedUrlCommand*)command;
+
+- (void)setVideoNotifier:(CDVInvokedUrlCommand*)command;
 
 - (void)setVideoAdDelegate:(CDVInvokedUrlCommand*)command;
 
 - (void)cacheVideos:(CDVInvokedUrlCommand*)command;
 
 - (void)sendIAPEvent:(CDVInvokedUrlCommand*)command;
+
+- (void)sendSegmentationParams:(CDVInvokedUrlCommand*)command;
 
 - (void)getDisplayAd:(CDVInvokedUrlCommand*)command;
 
@@ -109,6 +96,12 @@ static NSString* const TJ_DID_REQUEST_ACTION = @"TJ_DID_REQUEST_ACTION";
 - (void)sendEvent:(CDVInvokedUrlCommand*)command;
 
 - (void)showEvent:(CDVInvokedUrlCommand*)command;
+
+- (void)enableEventAutoPresent:(CDVInvokedUrlCommand*)command;
+
+- (void)eventRequestCompleted:(CDVInvokedUrlCommand*)command;
+
+- (void)eventRequestCancelled:(CDVInvokedUrlCommand*)command;
 
 - (void)sendEventComplete:(NSString*)guid withContent:(BOOL)contentIsAvailable;
 - (void)sendEventFail:(NSString*)guid error:(NSError*)error;

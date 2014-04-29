@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
-#import "Tapjoy.h"
-#import "TJEvent.h"
+#import <Tapjoy/Tapjoy.h>
+#import <Tapjoy/TJEvent.h>
 #import "TapjoyPlugin.h"
 
 @interface TapjoyEventPlugin : NSObject<TJEventDelegate>
